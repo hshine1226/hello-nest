@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MoviesController } from './movies/movies.controller';
+import { MoviesService } from './movies/movies.service';
 
 /* 
 AppModule을 살펴보면 가장 위에 일단 Module이라는 데코레이터가 있는데, 
@@ -18,6 +19,6 @@ url을 가져오고, 함수를 실행한다.
 @Module({
   imports: [],
   controllers: [MoviesController],
-  providers: [],
+  providers: [MoviesService],
 })
 export class AppModule {}
