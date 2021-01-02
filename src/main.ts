@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -10,6 +11,19 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // pipe는 expressjs의 middleware 같은 것이다.
+  // ValidationPipe의 transform 옵션은 api를 통해 보낸 값을 실제 값으로 변환한다.
+  // api를 통해 받아온 값은 주소이기 때문에 string 값을 가지고 있다.
+  // 그런데 이것을 받아와서 number로 바꿔줘야 하는데, transform 옵션을 사용하게 되면 해당 타입으로
+  // 자동으로 변환해주게 된다.
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
   await app.listen(3000);
 }
 bootstrap();
